@@ -1,29 +1,29 @@
-<header class="fixed inset-x-0 top-0 z-30 h-16 border-b border-black/5 bg-topbar text-topbar-text lg:pl-60">
-    <div class="flex h-full items-center justify-between px-4 sm:px-6">
+<header class="fixed inset-x-0 top-0 z-30 h-16 border-b border-black/5 bg-topbar/85 text-topbar-text backdrop-blur-xl lg:pl-72">
+    <div class="flex h-full items-center justify-between border-b border-white/40 px-4 sm:px-6 lg:border-none lg:px-8">
 
         <!-- Left -->
         <div class="flex items-center gap-2">
-            <button type="button" @click="sidebarOpen = ! sidebarOpen"
-                    class="flex h-9 w-9 items-center justify-center rounded-lg text-topbar-text/70 hover:bg-gray-500/10 lg:hidden">
+                <button type="button" @click="sidebarOpen = ! sidebarOpen"
+                    class="flex h-9 w-9 items-center justify-center rounded-xl border border-black/5 bg-white/70 text-topbar-text/70 shadow-sm backdrop-blur hover:bg-white lg:hidden">
                 <i class="ik ik-menu"></i>
             </button>
 
             <!-- Section switcher -->
             @include('include.topmenu')
 
-            <button type="button" @click="$dispatch('open-command')"
-                    class="hidden items-center gap-2 rounded-lg border border-gray-500/15 bg-gray-500/5 py-2 pl-3 pr-2 text-sm text-topbar-text/50 transition hover:bg-gray-500/10 md:flex">
+                <button type="button" @click="$dispatch('open-command')"
+                    class="hidden items-center gap-2 rounded-xl border border-gray-500/10 bg-white/70 py-2 pl-3 pr-2 text-sm text-topbar-text/50 shadow-sm backdrop-blur transition hover:bg-white md:flex">
                 <i class="ik ik-search"></i>
                 <span class="w-24 text-left lg:w-32">{{ __('Search...') }}</span>
                 <kbd class="rounded border border-gray-500/20 px-1.5 py-0.5 text-[10px] font-medium">⌘K</kbd>
             </button>
-            <button type="button" @click="$dispatch('open-command')" title="{{ __('Search') }}"
-                    class="flex h-9 w-9 items-center justify-center rounded-lg text-topbar-text/70 hover:bg-gray-500/10 md:hidden">
+                <button type="button" @click="$dispatch('open-command')" title="{{ __('Search') }}"
+                    class="flex h-9 w-9 items-center justify-center rounded-xl border border-black/5 bg-white/70 text-topbar-text/70 shadow-sm backdrop-blur hover:bg-white md:hidden">
                 <i class="ik ik-search"></i>
             </button>
 
-            <button type="button" onclick="document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()"
-                    class="hidden h-9 w-9 items-center justify-center rounded-lg text-topbar-text/70 hover:bg-gray-500/10 sm:flex">
+                <button type="button" onclick="document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()"
+                    class="hidden h-9 w-9 items-center justify-center rounded-xl border border-black/5 bg-white/70 text-topbar-text/70 shadow-sm backdrop-blur hover:bg-white sm:flex">
                 <i class="ik ik-maximize"></i>
             </button>
         </div>
@@ -34,7 +34,7 @@
             <!-- Quick create -->
             <x-dropdown width="w-52">
                 <x-slot:trigger>
-                    <button class="flex h-9 items-center gap-1.5 rounded-lg bg-primary-500/10 px-2.5 text-sm font-medium text-primary-600 transition hover:bg-primary-500/15" title="{{ __('Quick create') }}">
+                    <button class="flex h-9 items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 px-3 text-sm font-medium text-white shadow-lg shadow-primary-500/20 transition hover:shadow-primary-500/30" title="{{ __('Quick create') }}">
                         <i class="ik ik-plus"></i><span class="hidden sm:inline">{{ __('Create') }}</span>
                     </button>
                 </x-slot:trigger>
@@ -51,7 +51,7 @@
             <!-- Notifications -->
             <x-dropdown width="w-80">
                 <x-slot:trigger>
-                    <button class="relative flex h-9 w-9 items-center justify-center rounded-lg text-topbar-text/70 hover:bg-gray-500/10">
+                    <button class="relative flex h-9 w-9 items-center justify-center rounded-xl border border-black/5 bg-white/70 text-topbar-text/70 shadow-sm backdrop-blur hover:bg-white">
                         <i class="ik ik-bell"></i>
                         <span class="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent-500 px-1 text-[10px] font-semibold text-white">3</span>
                     </button>
@@ -85,15 +85,15 @@
             </x-dropdown>
 
             <!-- Chat drawer toggle -->
-            <button type="button" @click="chatOpen = true"
-                    class="relative flex h-9 w-9 items-center justify-center rounded-lg text-topbar-text/70 hover:bg-gray-500/10">
+                <button type="button" @click="chatOpen = true"
+                    class="relative flex h-9 w-9 items-center justify-center rounded-xl border border-black/5 bg-white/70 text-topbar-text/70 shadow-sm backdrop-blur hover:bg-white">
                 <i class="ik ik-message-square"></i>
                 <span class="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-green-500 px-1 text-[10px] font-semibold text-white">3</span>
             </button>
 
             <!-- App grid -->
-            <button type="button" @click="$dispatch('open-apps-modal')"
-                    class="flex h-9 w-9 items-center justify-center rounded-lg text-topbar-text/70 hover:bg-gray-500/10">
+                <button type="button" @click="$dispatch('open-apps-modal')"
+                    class="flex h-9 w-9 items-center justify-center rounded-xl border border-black/5 bg-white/70 text-topbar-text/70 shadow-sm backdrop-blur hover:bg-white">
                 <i class="ik ik-grid"></i>
             </button>
 
@@ -101,13 +101,13 @@
             <button type="button" title="{{ __('Toggle dark mode') }}"
                     x-data="{ dark: document.documentElement.classList.contains('dark') }"
                     @click="dark = ! dark; document.documentElement.classList.toggle('dark', dark); localStorage.setItem('radmin-dark', dark ? '1' : '0')"
-                    class="flex h-9 w-9 items-center justify-center rounded-lg text-topbar-text/70 hover:bg-gray-500/10">
+                    class="flex h-9 w-9 items-center justify-center rounded-xl border border-black/5 bg-white/70 text-topbar-text/70 shadow-sm backdrop-blur hover:bg-white">
                 <i :class="dark ? 'ik ik-sun' : 'ik ik-moon'"></i>
             </button>
 
             <!-- Theme customizer -->
             <button type="button" @click="$dispatch('open-theme')" title="{{ __('Customize theme') }}"
-                    class="flex h-9 w-9 items-center justify-center rounded-lg text-topbar-text/70 hover:bg-gray-500/10">
+                    class="flex h-9 w-9 items-center justify-center rounded-xl border border-black/5 bg-white/70 text-topbar-text/70 shadow-sm backdrop-blur hover:bg-white">
                 <i class="ik ik-droplet"></i>
             </button>
 

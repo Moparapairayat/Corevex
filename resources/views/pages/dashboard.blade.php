@@ -11,6 +11,64 @@
         </div>
     </x-page-header>
 
+    <div class="mb-5 grid grid-cols-1 gap-5 xl:grid-cols-5">
+        <x-card class="relative overflow-hidden xl:col-span-3" hover>
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-600 to-slate-900 opacity-95"></div>
+            <div class="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
+            <div class="absolute -bottom-10 left-24 h-36 w-36 rounded-full bg-emerald-400/15 blur-3xl"></div>
+
+            <div class="relative flex h-full flex-col justify-between gap-8 p-6 text-white sm:p-8">
+                <div class="flex flex-wrap items-start justify-between gap-4">
+                    <div class="max-w-2xl">
+                        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-white/60">{{ __('Corevex Control Center') }}</p>
+                        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">{{ __('A calmer dashboard for busy operations') }}</h2>
+                        <p class="mt-3 max-w-2xl text-sm leading-7 text-white/75 sm:text-base">{{ __('Focus on the numbers that matter. The layout keeps inventory, POS, accounting, and user activity visible without crowding the screen.') }}</p>
+                    </div>
+                    <div class="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur">
+                        <p class="text-[11px] uppercase tracking-[0.22em] text-white/60">{{ __('Live status') }}</p>
+                        <p class="mt-1 text-lg font-semibold">{{ __('All systems normal') }}</p>
+                        <p class="mt-1 text-xs text-white/70">{{ __('Docker MySQL • Demo data seeded') }}</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    @foreach ([['Invoices', '148'], ['Purchases', '72'], ['Returns', '11'], ['Alerts', '3']] as [$label, $value])
+                        <div class="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur">
+                            <p class="text-xs uppercase tracking-[0.18em] text-white/55">{{ __($label) }}</p>
+                            <p class="mt-2 text-2xl font-bold">{{ __($value) }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </x-card>
+
+        <x-card class="xl:col-span-2" hover>
+            <x-slot:header>{{ __('Today at a glance') }}</x-slot:header>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-2xl bg-gray-50 p-4 dark:bg-white/5">
+                    <p class="text-xs uppercase tracking-wide text-gray-400">{{ __('Gross sales') }}</p>
+                    <p class="mt-2 text-2xl font-bold text-gray-900">{{ __('$35.5k') }}</p>
+                    <p class="mt-1 text-xs text-emerald-500">+8.4% {{ __('vs yesterday') }}</p>
+                </div>
+                <div class="rounded-2xl bg-gray-50 p-4 dark:bg-white/5">
+                    <p class="text-xs uppercase tracking-wide text-gray-400">{{ __('Conversion') }}</p>
+                    <p class="mt-2 text-2xl font-bold text-gray-900">{{ __('24.8%') }}</p>
+                    <p class="mt-1 text-xs text-primary-600">{{ __('Healthy funnel') }}</p>
+                </div>
+                <div class="rounded-2xl bg-gray-50 p-4 dark:bg-white/5">
+                    <p class="text-xs uppercase tracking-wide text-gray-400">{{ __('Avg order') }}</p>
+                    <p class="mt-2 text-2xl font-bold text-gray-900">{{ __('$48') }}</p>
+                    <p class="mt-1 text-xs text-amber-500">{{ __('POS steady') }}</p>
+                </div>
+                <div class="rounded-2xl bg-gray-50 p-4 dark:bg-white/5">
+                    <p class="text-xs uppercase tracking-wide text-gray-400">{{ __('Open tasks') }}</p>
+                    <p class="mt-2 text-2xl font-bold text-gray-900">{{ __('12') }}</p>
+                    <p class="mt-1 text-xs text-accent-500">{{ __('Needs review') }}</p>
+                </div>
+            </div>
+        </x-card>
+    </div>
+
     <!-- Stat cards -->
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
         <x-stat-card value="2,563" label="{{ __('Products') }}" icon="fas fa-cube" color="accent"
