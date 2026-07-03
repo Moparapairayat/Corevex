@@ -40,7 +40,7 @@
 @endphp
 
 @if ($isGradient)
-    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br {{ $gradients[$color] ?? $gradients['primary'] }} {{ $darkGrad[$color] ?? $darkGrad['primary'] }} p-5 text-white dark:text-gray-800 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+    <div {{ $attributes->class(["relative overflow-hidden rounded-2xl bg-gradient-to-br " . ($gradients[$color] ?? $gradients['primary']) . " " . ($darkGrad[$color] ?? $darkGrad['primary']) . " p-5 text-white dark:text-gray-800 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg"]) }}>
         <div class="flex items-start justify-between">
             <div>
                 <h4 class="text-2xl font-bold tracking-tight">{{ $value }}</h4>
@@ -62,7 +62,7 @@
         </div>
     </div>
 @else
-    <x-card hover>
+    <x-card hover {{ $attributes }}>
         <div class="flex items-start justify-between">
             <div>
                 <h4 class="text-2xl font-bold text-gray-800">{{ $value }}</h4>

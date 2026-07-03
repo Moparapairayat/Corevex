@@ -2,33 +2,33 @@
        :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
     <!-- Brand -->
-    <div class="flex h-20 shrink-0 items-center justify-between border-b border-white/5 bg-gradient-to-br from-sidebar-header via-sidebar-header to-sidebar-sub px-5">
-        <a href="{{ route('dashboard') }}" class="flex items-center text-white" title="{{ config('app.name') }}">
-            <x-brand-logo markClass="h-9 w-9" textClass="text-xl" />
+    <div class="flex h-20 shrink-0 items-center justify-between border-b border-white/5 bg-gradient-to-r from-sidebar-header via-sidebar-header to-sidebar-sub/50 px-6">
+        <a href="{{ route('dashboard') }}" class="flex items-center gap-2 text-white group" title="{{ config('app.name') }}">
+            <x-brand-logo markClass="h-9 w-9 transition-transform duration-300 group-hover:scale-105" textClass="text-xl" />
+            <span class="inline-flex items-center rounded-full bg-primary-500/10 px-2 py-0.5 text-[9px] font-bold text-primary-400 ring-1 ring-primary-500/20">v4.0</span>
         </a>
-        <button @click="sidebarOpen = false" class="rounded-lg p-2 text-sidebar-text/80 transition hover:bg-white/10 hover:text-white lg:hidden">
+        <button @click="sidebarOpen = false" class="rounded-xl p-2 text-sidebar-text/80 transition-all duration-200 hover:bg-white/5 hover:text-white lg:hidden">
             <i class="ik ik-x"></i>
         </button>
     </div>
 
-    <div class="mx-4 mt-4 rounded-2xl border border-white/5 bg-white/5 p-4 text-white shadow-lg shadow-black/10">
-		<p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-sidebar-text/60">Workspace</p>
-		<div class="mt-3 flex items-center gap-3">
-			<span class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-sm font-bold text-white ring-1 ring-white/10">CV</span>
-			<div class="min-w-0">
-				<p class="truncate text-sm font-semibold text-white">Corevex HQ</p>
-				<p class="truncate text-xs text-sidebar-text/70">POS, Inventory & Accounting</p>
-			</div>
-		</div>
-		<div class="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] text-sidebar-text/70">
-			<div class="rounded-xl bg-white/5 px-2 py-2 ring-1 ring-white/5"><span class="block font-semibold text-white">24</span>Orders</div>
-			<div class="rounded-xl bg-white/5 px-2 py-2 ring-1 ring-white/5"><span class="block font-semibold text-white">13</span>Alerts</div>
-			<div class="rounded-xl bg-white/5 px-2 py-2 ring-1 ring-white/5"><span class="block font-semibold text-white">99%</span>Up</div>
-		</div>
-    </div>
 
     <!-- Nav (configured in config/menu.php) -->
     <nav class="scrollbar-thin flex-1 overflow-y-auto px-3 py-4">
         <x-nav.menu :items="config('menu.main')" />
     </nav>
+
+    <!-- User Profile Footer -->
+    <div class="border-t border-white/5 bg-sidebar-sub/30 p-4 shrink-0">
+        <div class="flex items-center gap-3 rounded-xl bg-white/5 p-3 ring-1 ring-white/5">
+            <img class="h-9 w-9 rounded-xl object-cover ring-2 ring-white/10" src="{{ asset('img/user.jpg') }}" alt="">
+            <div class="min-w-0 flex-1">
+                <p class="truncate text-xs font-bold text-white">{{ auth()->user()->name ?? 'Admin User' }}</p>
+                <p class="truncate text-[10px] text-white/50">{{ auth()->user()->email ?? 'admin@test.com' }}</p>
+            </div>
+            <a href="{{ url('logout') }}" class="flex h-8 w-8 items-center justify-center rounded-lg text-white/60 hover:bg-white/10 hover:text-white transition duration-200" title="{{ __('Logout') }}">
+                <i class="ik ik-power text-sm"></i>
+            </a>
+        </div>
+    </div>
 </aside>

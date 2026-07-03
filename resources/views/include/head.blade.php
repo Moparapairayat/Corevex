@@ -7,9 +7,10 @@
 
 <link rel="icon" type="image/svg+xml" href="{{ asset('img/corevex-mark.svg') }}" />
 
-<!-- Nunito font (kept from the original theme) -->
+<!-- Fonts: Outfit & Plus Jakarta Sans -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Icon fonts (Bootstrap-independent, kept so existing icon markup keeps working) -->
 <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">

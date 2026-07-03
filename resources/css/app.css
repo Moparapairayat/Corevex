@@ -11,7 +11,7 @@
  | dark sidebar, light top header, blue primary, red active accent.
  */
 @theme {
-    --font-sans: 'Nunito', 'Nunito Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Outfit', 'Plus Jakarta Sans', 'Nunito', 'Nunito Sans', ui-sans-serif, system-ui, sans-serif;
 
     /* Brand primary (was Bootstrap $primary / #007bff) */
     --color-primary-50: #e9f3ff;
@@ -31,9 +31,9 @@
     --color-accent-600: #d83b47;
 
     /* Dark sidebar palette (was #1e1e2d / #272d36 / #131923) */
-    --color-sidebar-header: #272d36;
-    --color-sidebar: #1e1e2d;
-    --color-sidebar-sub: #131923;
+    --color-sidebar-header: #0f1015;
+    --color-sidebar: #0a0a0f;
+    --color-sidebar-sub: #050508;
     --color-sidebar-text: #ccd3e4;
     --color-sidebar-icon: #525c71;
     --color-sidebar-border: rgba(243, 243, 243, 0.12);
@@ -80,9 +80,9 @@ html.dark {
      */
     --color-topbar: #1b1f2a !important;
     --color-topbar-text: #e5e9f0 !important;
-    --color-sidebar: #171b26 !important;
-    --color-sidebar-header: #1e2330 !important;
-    --color-sidebar-sub: #0e1118 !important;
+    --color-sidebar: #0a0a0f !important;
+    --color-sidebar-header: #0f1015 !important;
+    --color-sidebar-sub: #050508 !important;
     --color-sidebar-text: #cdd4e4 !important;
     --color-sidebar-icon: #6b748c !important;
     --color-sidebar-border: rgba(255, 255, 255, 0.08) !important;
@@ -191,3 +191,96 @@ html.dark optgroup,
  */
 .ct-label { fill: #94a3b8; color: #94a3b8; font-size: 12px; }
 .ct-grid { stroke: rgba(148, 163, 184, 0.18); }
+
+/*
+ |--------------------------------------------------------------------------
+ | Premium Custom Dashboard Effects
+ |--------------------------------------------------------------------------
+ */
+@keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-flow {
+    background-size: 200% 200%;
+    animation: gradient-flow 12s ease infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 0.4; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+.pulse-ring-glow {
+    position: relative;
+}
+.pulse-ring-glow::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    border: 2px solid var(--color-primary-400);
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    pointer-events: none;
+}
+
+/* Glassmorphism for today-at-a-glance items */
+.glass-metric {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(241, 245, 249, 0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+html.dark .glass-metric {
+    background: rgba(27, 31, 42, 0.45);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.glass-metric:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(37, 99, 235, 0.2);
+    box-shadow: 0 12px 20px -8px rgba(37, 99, 235, 0.12);
+}
+html.dark .glass-metric:hover {
+    background: rgba(27, 31, 42, 0.75);
+    border-color: rgba(37, 99, 235, 0.3);
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* Custom premium hover cards with soft drop-shadow matching theme colors */
+.hover-glow-primary:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 123, 255, 0.25);
+    transform: translateY(-3px);
+}
+.hover-glow-accent:hover {
+    box-shadow: 0 10px 25px -5px rgba(235, 82, 93, 0.25);
+    transform: translateY(-3px);
+}
+.hover-glow-green:hover {
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.25);
+    transform: translateY(-3px);
+}
+.hover-glow-amber:hover {
+    box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.25);
+    transform: translateY(-3px);
+}
+
+/* Table styling updates */
+.premium-table th {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+}
+.premium-table tbody tr {
+    transition: all 0.2s ease;
+}
+.premium-table tbody tr:hover {
+    background-color: rgba(248, 250, 252, 0.8);
+}
+html.dark .premium-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
