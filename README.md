@@ -159,11 +159,6 @@ Set `APP_ENV=production` and `APP_DEBUG=false`, point the web root at `/public`,
 
 ---
 
-## 👤 Author & credits
-
-- **Author:** Md. Rakibul Islam · [rakib1708@gmail.com](mailto:rakib1708@gmail.com)
-- **Studio:** [Corevex](https://corevex.app)
-
 Built with Laravel, Tailwind CSS, Alpine.js, Spatie Laravel Permission, Laravel Passport and IconKit.
 
 ## License
