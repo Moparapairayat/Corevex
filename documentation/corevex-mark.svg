@@ -1,0 +1,12 @@
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Corevex">
+  <defs>
+    <linearGradient id="corevex-mark-gradient" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f766e" />
+      <stop offset="0.55" stop-color="#2563eb" />
+      <stop offset="1" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="12" fill="url(#corevex-mark-gradient)" />
+  <path d="M26.8 13.2C25.2 12 23.2 11.3 21 11.3c-5 0-9 4-9 9s4 9 9 9c2.2 0 4.2-.7 5.8-1.9" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M18.7 17.2l3.4 7.1 6.3-12.1" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

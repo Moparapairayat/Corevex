@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentation — Corevex | Laravel 12 + Tailwind Admin Template</title>
+    <meta name="description" content="End-to-end documentation for Corevex: installation, configuration, project structure, theming, components, roles & permissions, modules, REST API and deployment.">
+    <link rel="icon" type="image/svg+xml" href="corevex-mark.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'], mono: ['JetBrains Mono','ui-monospace','monospace'] },
+                colors: { primary: { 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' } },
+            } },
+        }
+    </script>
+    <style>
+        .brand-grad { background-image: linear-gradient(135deg,#2563eb 0%,#7c3aed 100%); }
+        .brand-text { background-image: linear-gradient(135deg,#2563eb 0%,#7c3aed 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+        .doc h2 { scroll-margin-top: 6rem; }
+        .doc h3 { scroll-margin-top: 6rem; }
+        pre { font-family: 'JetBrains Mono', monospace; }
+        .toc a.active { color:#2563eb; font-weight:600; }
+        .prose-doc p { margin-top:.75rem; line-height:1.7; }
+        .prose-doc ul { margin-top:.75rem; }
+        .prose-doc li { margin-top:.35rem; }
+        .chip { display:inline-flex; align-items:center; border-radius:0.5rem; background:#f1f5f9; padding:0.25rem 0.55rem; font-size:0.72rem; font-weight:500; color:#475569; }
+    </style>
+</head>
+<body class="bg-white font-sans text-slate-700 antialiased">
+
+    <!-- TOPBAR -->
+    <header class="sticky top-0 z-50 border-b border-slate-100 bg-white/90 backdrop-blur">
+        <div class="mx-auto flex max-w-screen-2xl items-center justify-between px-5 py-3">
+            <div class="flex items-center gap-3">
+                <button id="navToggle" class="rounded-lg p-2 text-slate-500 hover:bg-slate-100 lg:hidden" aria-label="Toggle navigation">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <img src="corevex-mark.svg" alt="Corevex" class="h-8 w-8">
+                    <span class="text-lg font-extrabold tracking-tight text-slate-900">Core<span class="brand-text">vex</span></span>
+                    <span class="ml-1 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500">Docs</span>
+                </a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="release-notes.html" class="hidden rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 sm:inline-flex">Release notes</a>
+                <a href="index.html" class="hidden rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 sm:inline-flex">← Landing</a>
+                <a href="https://codecanyon.net/item/laravel-admin-template-roles-permission-editable-datatables/26005211" class="inline-flex items-center rounded-lg brand-grad px-4 py-2 text-sm font-semibold text-white">Buy now</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="mx-auto flex max-w-screen-2xl">
+        <!-- SIDEBAR TOC -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 hidden w-72 shrink-0 overflow-y-auto border-r border-slate-100 bg-white px-5 pb-10 pt-20 lg:sticky lg:top-0 lg:block lg:h-screen lg:pt-6">
+            <nav class="toc space-y-6 text-sm">
+                <div>
+                    <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Getting started</p>
+                    <ul class="space-y-1.5 border-l border-slate-100">
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#introduction">Introduction</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#whats-included">What's included</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#ui-kit">UI kit at a glance</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#requirements">Requirements</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Installation</p>
+                    <ul class="space-y-1.5 border-l border-slate-100">
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#quick-start">Quick start (Docker)</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#manual-install">Manual install</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#configuration">Configuration</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#credentials">Default login</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#assets">Building assets</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Architecture</p>
+                    <ul class="space-y-1.5 border-l border-slate-100">
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#structure">Project structure</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#layouts">Layouts</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#navigation">Navigation &amp; menus</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#theming">Theming &amp; branding</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Components</p>
+                    <ul class="space-y-1.5 border-l border-slate-100">
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#components">Library overview</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#layout-components">Layout &amp; data</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#form-components">Forms</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#overlay-components">Overlays &amp; feedback</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Guides</p>
+                    <ul class="space-y-1.5 border-l border-slate-100">
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#rbac">Roles &amp; permissions</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#new-page">Add a new page</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#api">REST API</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#deployment">Deployment</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#troubleshooting">Troubleshooting</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#changelog">Changelog</a></li>
+                        <li><a class="block border-l-2 border-transparent -ml-px pl-3 text-slate-600 hover:text-blue-600 hover:border-blue-600" href="#support">Support &amp; credits</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div id="backdrop" class="fixed inset-0 z-30 hidden bg-black/40 lg:hidden"></div>
+
+        <!-- CONTENT -->
+        <main class="doc prose-doc min-w-0 flex-1 px-5 py-10 lg:px-12 lg:py-12">
+            <div class="mx-auto max-w-3xl">
+
+                <p class="text-sm font-semibold uppercase tracking-widest brand-text">Corevex Documentation</p>
+                <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-slate-900">Get started with Corevex</h1>
+                <p class="mt-4 text-lg text-slate-500">Everything you need to install, configure, customize and extend your Laravel&nbsp;12 + Tailwind admin panel — from first clone to production deploy.</p>
+
+                <!-- INTRODUCTION -->
+                <h2 id="introduction" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Introduction</h2>
+                <p>Corevex is a premium admin template built on <strong>Laravel 12</strong>, <strong>Tailwind CSS v4</strong> and <strong>Alpine.js</strong>. It ships role-based access control (Spatie), 25+ reusable Blade components (including a feature-rich Tailwind data table) and fully-designed modules (Dashboard, Inventory, POS, Accounting, Reports, Settings, Users). Interactivity that older admin themes handled with jQuery is now driven by lightweight Alpine directives, and styling is 100% utility-first Tailwind.</p>
+                <div class="mt-4 rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm text-blue-800">
+                    <strong>Tech stack:</strong> Laravel 12 · PHP 8.2+ · Tailwind CSS v4 · Alpine.js · Vite · Spatie Laravel Permission · Laravel Passport · MySQL 8.
+                </div>
+
+                <!-- WHAT'S INCLUDED -->
+                <h2 id="whats-included" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">What's included</h2>
+                <ul class="list-disc pl-5 text-slate-600">
+                    <li>Full Laravel 12 application source code</li>
+                    <li>25+ Tailwind + Alpine Blade components in <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">resources/views/components</code></li>
+                    <li>Pre-built modules &amp; screens, all responsive and dark-mode ready</li>
+                    <li>Roles, permissions and users management with a redesigned permission picker</li>
+                    <li>Live theme customizer with 8 preset palettes</li>
+                    <li>Docker configuration for a one-command local environment</li>
+                    <li>This documentation and a marketing landing page (in <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">/docs</code>)</li>
+                </ul>
+
+                <!-- UI KIT AT A GLANCE -->
+                <h2 id="ui-kit" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">UI kit at a glance</h2>
+                <p class="text-slate-600">A scannable index of the 100+ interactive pieces Corevex ships — all Tailwind v4 + Alpine.js, no jQuery. Each is demoed in the live app.</p>
+                <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div class="rounded-xl border border-slate-100 p-5">
+                        <h3 class="text-sm font-bold text-slate-900">Forms &amp; inputs</h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            <span class="chip">Inputs</span><span class="chip">Selects</span><span class="chip">Textareas</span><span class="chip">Validation states</span><span class="chip">Color &amp; bg inputs</span><span class="chip">File dropzone</span><span class="chip">Input groups &amp; addons</span><span class="chip">Searchable multi-select</span><span class="chip">Rich text editor</span><span class="chip">Tag input</span><span class="chip">Form repeater</span><span class="chip">Toggles</span><span class="chip">Checkboxes</span><span class="chip">Radio: fill / outline / button / color</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-slate-100 p-5">
+                        <h3 class="text-sm font-bold text-slate-900">Pickers</h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            <span class="chip">Date picker</span><span class="chip">Inline calendar</span><span class="chip">Month / week</span><span class="chip">Time picker</span><span class="chip">Time-slot picker</span><span class="chip">Color picker</span><span class="chip">Swatch palette</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-slate-100 p-5">
+                        <h3 class="text-sm font-bold text-slate-900">Navigation</h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            <span class="chip">Light / dark / brand navbars</span><span class="chip">Dropdown menus</span><span class="chip">Pills &amp; tabs</span><span class="chip">Breadcrumbs</span><span class="chip">Vertical nav</span><span class="chip">Command palette</span><span class="chip">Workspace switcher</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-slate-100 p-5">
+                        <h3 class="text-sm font-bold text-slate-900">Data &amp; tables</h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            <span class="chip">Smart data table</span><span class="chip">Search &amp; per-page</span><span class="chip">Copy / CSV / Excel / PDF</span><span class="chip">Print</span><span class="chip">Pagination</span><span class="chip">Bulk actions</span><span class="chip">List &amp; box views</span><span class="chip">Stat cards</span><span class="chip">Status pills</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-slate-100 p-5">
+                        <h3 class="text-sm font-bold text-slate-900">Charts <span class="ml-1 text-[10px] font-bold uppercase tracking-wide text-emerald-600">Pure SVG</span></h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            <span class="chip">Bar</span><span class="chip">Line / area</span><span class="chip">Donut</span><span class="chip">Radial gauge</span><span class="chip">Sparkline</span><span class="chip">Hover tooltips</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-slate-100 p-5">
+                        <h3 class="text-sm font-bold text-slate-900">Widgets &amp; apps</h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            <span class="chip">Expandable / removable cards</span><span class="chip">Reload overlay</span><span class="chip">Calendar + event modal</span><span class="chip">Taskboard (drag &amp; drop)</span><span class="chip">Carousels — 7 variants</span><span class="chip">Range sliders — 8 variants</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-slate-100 p-5">
+                        <h3 class="text-sm font-bold text-slate-900">Overlays &amp; feedback</h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            <span class="chip">Modals</span><span class="chip">Drawers</span><span class="chip">Toasts</span><span class="chip">Confirm dialogs</span><span class="chip">Tooltips</span><span class="chip">Dropdowns</span><span class="chip">Alerts</span><span class="chip">Skeletons</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-slate-100 p-5">
+                        <h3 class="text-sm font-bold text-slate-900">Commerce</h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            <span class="chip">POS terminal</span><span class="chip">Hold &amp; resume orders</span><span class="chip">Payment &amp; change</span><span class="chip">Add Sale builder</span><span class="chip">Add Purchase builder</span><span class="chip">Customer / supplier modal</span><span class="chip">Product wizard (4-step)</span><span class="chip">Invoice — 5 templates</span><span class="chip">Pricing — 4 layouts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REQUIREMENTS -->
+                <h2 id="requirements" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Requirements</h2>
+                <p>To run Corevex locally you'll need either Docker (recommended, batteries included) <em>or</em> a local PHP toolchain:</p>
+                <ul class="list-disc pl-5 text-slate-600">
+                    <li><strong>PHP</strong> 8.2 or higher (with <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">pdo_mysql</code>, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">mbstring</code>, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">openssl</code>, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">gd</code>)</li>
+                    <li><strong>Composer</strong> 2.x</li>
+                    <li><strong>Node.js</strong> 18+ and npm (for Vite asset building)</li>
+                    <li><strong>MySQL</strong> 8 (or MariaDB 10.6+)</li>
+                    <li><strong>Docker</strong> &amp; Docker Compose — optional but recommended</li>
+                </ul>
+
+                <!-- QUICK START -->
+                <h2 id="quick-start" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Quick start (Docker)</h2>
+                <p>The fastest path. From the project root:</p>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code># 1 · Create your environment file
+cp .env.example .env
+
+# 2 · Start the stack (PHP-FPM, Nginx, MySQL)
+docker compose up -d
+
+# 3 · Install PHP dependencies
+docker compose exec php composer install
+
+# 4 · Generate the app key
+docker compose exec php php artisan key:generate
+
+# 5 · Run migrations + seeders (creates demo data & the admin user)
+docker compose exec php php artisan migrate --seed
+
+# 6 · Build front-end assets
+npm install &amp;&amp; npm run build</code></pre>
+                <p>The app is now served at <a href="http://localhost:8900" class="font-semibold text-blue-600">http://localhost:8900</a>.</p>
+                <div class="mt-4 rounded-xl border border-amber-100 bg-amber-50 p-4 text-sm text-amber-800">
+                    <strong>Note:</strong> the <code class="rounded bg-amber-100 px-1.5 py-0.5">php</code> container loads <code class="rounded bg-amber-100 px-1.5 py-0.5">.env</code> via <code class="rounded bg-amber-100 px-1.5 py-0.5">env_file</code>, so values become real OS environment variables at container creation. If you change <code class="rounded bg-amber-100 px-1.5 py-0.5">APP_NAME</code> (or other env vars) later, recreate the container so it picks them up: <code class="rounded bg-amber-100 px-1.5 py-0.5">docker compose up -d --force-recreate php</code>.
+                </div>
+
+                <!-- MANUAL INSTALL -->
+                <h2 id="manual-install" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Manual install (no Docker)</h2>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code># Install dependencies
+composer install
+npm install
+
+# Environment
+cp .env.example .env
+php artisan key:generate
+
+# Configure your database in .env, then:
+php artisan migrate --seed
+
+# Build assets (or use `npm run dev` while developing)
+npm run build
+
+# Serve
+php artisan serve   # http://127.0.0.1:8000</code></pre>
+
+                <!-- CONFIGURATION -->
+                <h2 id="configuration" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Configuration</h2>
+                <p>Core settings live in <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">.env</code>. The brand name, tagline and meta description are surfaced across titles and auth screens:</p>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>APP_NAME=Corevex
+APP_TAGLINE="All-in-One Laravel Admin Template for POS, Inventory & Accounting"
+APP_VERSION=4.0.0
+
+DB_CONNECTION=mysql
+DB_HOST=mysql          # use 127.0.0.1 for a local (non-Docker) DB
+DB_PORT=3306
+DB_DATABASE=radmin
+DB_USERNAME=root
+DB_PASSWORD=secret</code></pre>
+                <p><code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">config/app.php</code> exposes <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">name</code>, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">tagline</code> and <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">description</code>, all overridable via the matching env keys. Use them anywhere with <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">config('app.tagline')</code>.</p>
+
+                <!-- CREDENTIALS -->
+                <h2 id="credentials" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Default login</h2>
+                <p>After seeding, sign in with the demo administrator:</p>
+                <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                    <table class="w-full text-sm">
+                        <tbody class="divide-y divide-slate-100">
+                            <tr><td class="bg-slate-50 px-4 py-3 font-semibold text-slate-700">Email</td><td class="px-4 py-3 font-mono">admin@test.com</td></tr>
+                            <tr><td class="bg-slate-50 px-4 py-3 font-semibold text-slate-700">Password</td><td class="px-4 py-3 font-mono">1234</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-3 text-sm text-slate-500">Change these credentials before deploying to production.</p>
+
+                <!-- ASSETS -->
+                <h2 id="assets" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Building assets</h2>
+                <p>Front-end assets are compiled with Vite. Tailwind v4 is configured via <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">@theme</code> tokens inside <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">resources/css/app.css</code> — there is no <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">tailwind.config.js</code>.</p>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>npm run dev      # hot-reloading dev server while you work
+npm run build    # optimized production build → public/build</code></pre>
+
+                <!-- STRUCTURE -->
+                <h2 id="structure" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Project structure</h2>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>app/
+  Http/Controllers/        # Roles, Permission, User, Dashboard, API…
+config/
+  app.php                  # name, tagline, description, version
+  menu.php                 # sidebar + workspace navigation (single source)
+resources/
+  css/app.css              # Tailwind v4 @theme tokens (colors, dark mode)
+  js/app.js                # Alpine + plugins + global stores
+  views/
+    layouts/main.blade.php # authenticated app shell
+    include/               # head, header, sidebar, footer partials
+    components/            # 25+ &lt;x-...&gt; Blade components
+    components/form/       # input, select, textarea, toggle, checkbox
+    <module>/              # inventory, accounting, pos, reports, settings
+public/
+  build/                   # compiled Vite assets
+    img/corevex-mark.svg     # brand logomark (also the favicon)
+docs/                      # this documentation + landing page
+docker-compose.yml         # php, nginx, mysql services</code></pre>
+
+                <!-- LAYOUTS -->
+                <h2 id="layouts" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Layouts</h2>
+                <p>Authenticated pages extend the main shell, which wires the sidebar, header, footer and global overlays:</p>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>@extends('layouts.main')
+@section('title', 'Users')
+
+@section('content')
+    {{-- your page content --}}
+@endsection</code></pre>
+                <p>Guest screens (login, register, 404…) use the <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">&lt;x-auth-layout&gt;</code> component, which centers a card and pulls the brand logo automatically.</p>
+
+                <!-- NAVIGATION -->
+                <h2 id="navigation" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Navigation &amp; menus</h2>
+                <p>All navigation is data-driven from <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">config/menu.php</code>. The <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">top</code> array powers the topbar workspace switcher; <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">main</code> (and per-module keys) power the sidebars.</p>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>'main' =&gt; [
+    ['label' =&gt; 'Dashboard', 'icon' =&gt; 'ik ik-home', 'route' =&gt; 'dashboard', 'active' =&gt; 'dashboard'],
+
+    ['heading' =&gt; 'Administrator'],
+    ['label' =&gt; 'Roles', 'icon' =&gt; 'ik ik-award', 'url' =&gt; 'roles',
+     'active' =&gt; 'roles*', 'can' =&gt; 'manage_roles'],
+
+    // collapsible group
+    ['label' =&gt; 'Reports', 'icon' =&gt; 'ik ik-trending-up', 'active' =&gt; 'reports*', 'children' =&gt; [
+        ['label' =&gt; 'Sales', 'url' =&gt; 'reports/sales', 'active' =&gt; 'reports/sales'],
+    ]],
+],</code></pre>
+                <p>Supported keys: <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">label</code>, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">icon</code>, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">route</code>/<code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">url</code>, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">active</code> (a <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">request()-&gt;is()</code> pattern), <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">can</code> (gate), <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">badge</code>, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">desc</code> and <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">children</code>.</p>
+
+                <!-- THEMING -->
+                <h2 id="theming" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Theming &amp; branding</h2>
+                <h3 class="mt-6 text-lg font-bold text-slate-900">Colors</h3>
+                <p>Brand colors are CSS variables defined under <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">@theme</code> in <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">resources/css/app.css</code>. Edit the <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">--color-primary-*</code> scale to rebrand globally:</p>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>@theme {
+    --color-primary-500: #007bff;   /* brand */
+    --color-primary-600: #006fe6;   /* hover */
+    --color-accent-500:  #eb525d;   /* active accent */
+    /* sidebar / topbar tokens, gray scale, dark-mode overrides… */
+}</code></pre>
+                <h3 class="mt-6 text-lg font-bold text-slate-900">Live theme customizer</h3>
+                <p>Open it from the droplet icon in the header. Users can pick from 8 preset palettes or tune the sidebar, topbar and primary color individually. Choices are stored in <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">localStorage</code> and applied before paint (no flash) — no rebuild required.</p>
+                <h3 class="mt-6 text-lg font-bold text-slate-900">Logo</h3>
+                <p>The brand mark is a single component, <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">&lt;x-brand-logo&gt;</code>, and the SVG file <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">public/img/corevex-mark.svg</code> (also the favicon). Swap them to use your own brand:</p>
+                <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>&lt;x-brand-logo markClass="h-8 w-8" textClass="text-lg" /&gt;
+&lt;x-brand-logo :wordmark="false" /&gt;   {{-- mark only --}}</code></pre>
+
+                <!-- COMPONENTS -->
+                <h2 id="components" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Component library</h2>
+                <p>Components live in <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">resources/views/components</code> and are used as <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">&lt;x-name&gt;</code> tags. Below are the most common ones; every component accepts standard HTML attributes (classes, ids) which are merged onto the root element.</p>
+
+                <h3 id="layout-components" class="mt-8 text-lg font-bold text-slate-900">Layout &amp; data</h3>
+
+                <p class="mt-4 font-semibold text-slate-800">Page header</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>&lt;x-page-header
+    title="Roles"
+    subtitle="Define roles of user"
+    icon="ik ik-award"
+    :breadcrumbs="['Home' =&gt; route('dashboard'), 'Roles' =&gt; null]" /&gt;</code></pre>
+
+                <p class="mt-6 font-semibold text-slate-800">Card</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>&lt;x-card title="Profile" subtitle="Your details" icon="ik ik-user"&gt;
+    {{-- body --}}
+    &lt;x-slot:actions&gt;&lt;x-button size="sm"&gt;Edit&lt;/x-button&gt;&lt;/x-slot:actions&gt;
+&lt;/x-card&gt;</code></pre>
+
+                <p class="mt-6 font-semibold text-slate-800">Table (search, export, pagination)</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>&lt;x-table :paginator="$users" title="Users" search&gt;
+    &lt;table class="w-full text-sm"&gt;
+        &lt;thead&gt;...&lt;/thead&gt;
+        &lt;tbody&gt;@foreach ($users as $u) ... @endforeach&lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/x-table&gt;</code></pre>
+                <p class="text-sm text-slate-500">Props include <code class="rounded bg-slate-100 px-1 py-0.5">:paginator</code>, <code class="rounded bg-slate-100 px-1 py-0.5">search</code>, <code class="rounded bg-slate-100 px-1 py-0.5">selectable</code>, <code class="rounded bg-slate-100 px-1 py-0.5">:perPageOptions</code>, plus <code class="rounded bg-slate-100 px-1 py-0.5">actions</code>/<code class="rounded bg-slate-100 px-1 py-0.5">filters</code>/<code class="rounded bg-slate-100 px-1 py-0.5">bulkActions</code> slots.</p>
+
+                <p class="mt-6 font-semibold text-slate-800">Stat card · Badge · Status pill</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>&lt;x-stat-card value="$48.2k" label="Revenue" icon="ik ik-dollar-sign"
+    color="primary" trend="+12.5%" :trendUp="true" /&gt;
+
+&lt;x-badge color="success"&gt;Active&lt;/x-badge&gt;
+&lt;x-status-pill status="paid" /&gt;        {{-- in-stock, low, out, unpaid, overdue… --}}</code></pre>
+
+                <p class="mt-6 font-semibold text-slate-800">Button</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>&lt;x-button variant="primary"&gt;Save&lt;/x-button&gt;
+&lt;x-button variant="outline" size="sm" href="/users"&gt;Cancel&lt;/x-button&gt;
+{{-- variants: primary, secondary, danger, success, warning, outline, ghost --}}</code></pre>
+
+                <h3 id="form-components" class="mt-10 text-lg font-bold text-slate-900">Forms</h3>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>&lt;x-form.input name="email" type="email" label="Email"
+    icon="ik ik-mail" required hint="We never share it." /&gt;
+
+&lt;x-form.select name="role" label="Role" :required="true"&gt;
+    &lt;option value="admin"&gt;Admin&lt;/option&gt;
+&lt;/x-form.select&gt;
+
+&lt;x-form.textarea name="bio" label="Bio" rows="4" /&gt;
+&lt;x-form.toggle name="active" label="Active" :checked="true" /&gt;
+&lt;x-form.checkbox name="terms" label="I agree" /&gt;</code></pre>
+
+                <p class="mt-6 font-semibold text-slate-800">Permission selector</p>
+                <p>A drop-in picker that auto-groups permissions by their <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">{action}_{resource}</code> name, with search, per-group select-all and a live counter — built to scale past 100 permissions.</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>&lt;x-permission-selector
+    :permissions="$permissions"   {{-- id =&gt; name (e.g. Permission::pluck('name','id')) --}}
+    :selected="$rolePermissionIds" {{-- edit mode --}}
+    name="permissions"             {{-- submits as permissions[] --}}
+    channel="role-perms" /&gt;        {{-- set selection externally via a window event --}}</code></pre>
+
+                <h3 id="overlay-components" class="mt-10 text-lg font-bold text-slate-900">Overlays &amp; feedback</h3>
+                <p>Drawers, modals, toasts and the confirm dialog are event-driven through Alpine — dispatch a window event to open them from anywhere.</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>{{-- Slide-over drawer --}}
+&lt;x-drawer name="user-form" title="New user" width="w-[42rem]"&gt;
+    &lt;form&gt;...&lt;/form&gt;
+    &lt;x-slot:footer&gt;&lt;x-button type="submit"&gt;Save&lt;/x-button&gt;&lt;/x-slot:footer&gt;
+&lt;/x-drawer&gt;
+{{-- open it: --}}
+&lt;button @click="$dispatch('open-drawer', 'user-form')"&gt;New&lt;/button&gt;
+
+{{-- Toast (global store) --}}
+&lt;button @click="$store.toast.push('Saved!', 'success')"&gt;Save&lt;/button&gt;
+
+{{-- Confirm dialog --}}
+@click="$store.confirm.open({ title: 'Delete?', onConfirm: () =&gt; $root.submit() })"</code></pre>
+                <p class="text-sm text-slate-500">Also included: <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-modal&gt;</code>, <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-dropdown&gt;</code>, <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-tabs&gt;</code>, <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-alert&gt;</code>, <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-empty-state&gt;</code>, <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-skeleton&gt;</code>, <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-avatar&gt;</code>, <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-tooltip&gt;</code>, <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-save-bar&gt;</code> and <code class="rounded bg-slate-100 px-1 py-0.5">&lt;x-command-palette&gt;</code> (⌘K).</p>
+
+                <!-- RBAC -->
+                <h2 id="rbac" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Roles &amp; permissions</h2>
+                <p>Access control uses <a href="https://spatie.be/docs/laravel-permission" class="font-semibold text-blue-600">Spatie Laravel Permission</a>. Permissions follow a <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">{action}_{resource}</code> convention (e.g. <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">manage_user</code>) so the permission selector can group them automatically.</p>
+                <p class="mt-3"><strong>Protect a route or UI element</strong> with the standard gate helpers:</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>// routes / controllers
+$this-&gt;middleware('can:manage_user');
+
+{{-- blade --}}
+@can('manage_roles')
+    &lt;a href="{{ url('roles') }}"&gt;Roles&lt;/a&gt;
+@endcan</code></pre>
+                <p class="mt-3"><strong>Add a new permission</strong> from the Permissions screen (a drawer with a colored role picker), or via a seeder/tinker:</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>use Spatie\Permission\Models\Permission;
+Permission::create(['name' =&gt; 'manage_invoice']);</code></pre>
+                <p class="mt-3">Assign permissions to a role from the Roles screen — the create/edit drawer renders <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">&lt;x-permission-selector&gt;</code> and persists with <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">$role-&gt;syncPermissions(...)</code>.</p>
+
+                <!-- NEW PAGE -->
+                <h2 id="new-page" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Add a new page</h2>
+                <ol class="list-decimal pl-5 text-slate-600">
+                    <li><strong>Route</strong> — register it in <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">routes/web.php</code>:</li>
+                </ol>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>Route::get('/projects', [ProjectController::class, 'index'])-&gt;name('projects');</code></pre>
+                <ol class="list-decimal pl-5 text-slate-600" start="2">
+                    <li><strong>View</strong> — create <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">resources/views/projects.blade.php</code> extending the shell:</li>
+                </ol>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>@extends('layouts.main')
+@section('title', 'Projects')
+@section('content')
+    &lt;x-page-header title="Projects" icon="ik ik-folder" /&gt;
+    &lt;x-table :paginator="$projects" search&gt; ... &lt;/x-table&gt;
+@endsection</code></pre>
+                <ol class="list-decimal pl-5 text-slate-600" start="3">
+                    <li><strong>Menu</strong> — add an entry to <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">config/menu.php</code> so it appears in the sidebar.</li>
+                </ol>
+
+                <!-- API -->
+                <h2 id="api" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">REST API</h2>
+                <p>Corevex exposes token-authenticated endpoints via <strong>Laravel Passport</strong> for users, roles and permissions (see <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">app/Http/Controllers/Api</code> and <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">routes/api.php</code>). Authenticate, then call the resources with a Bearer token:</p>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code>curl -X POST https://your-app.test/api/login \
+  -H "Accept: application/json" \
+  -d "email=admin@test.com&amp;password=1234"
+
+curl https://your-app.test/api/users \
+  -H "Authorization: Bearer &lt;token&gt;"</code></pre>
+
+                <!-- DEPLOYMENT -->
+                <h2 id="deployment" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Deployment</h2>
+                <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-5 text-sm text-slate-100"><code># On the server
+composer install --no-dev --optimize-autoloader
+npm install &amp;&amp; npm run build
+php artisan migrate --force
+
+# Cache for production
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache</code></pre>
+                <ul class="list-disc pl-5 text-slate-600">
+                    <li>Set <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">APP_ENV=production</code> and <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">APP_DEBUG=false</code>.</li>
+                    <li>Point your web server's document root at <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">/public</code>.</li>
+                    <li>Ensure <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">storage</code> and <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">bootstrap/cache</code> are writable.</li>
+                </ul>
+
+                <!-- TROUBLESHOOTING -->
+                <h2 id="troubleshooting" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Troubleshooting</h2>
+                <div class="mt-4 space-y-4">
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <p class="font-semibold text-slate-800">Changing <code class="rounded bg-slate-100 px-1.5 py-0.5">APP_NAME</code> in <code class="rounded bg-slate-100 px-1.5 py-0.5">.env</code> has no effect</p>
+                        <p class="mt-1 text-sm text-slate-500">In Docker, env vars are injected at container creation. Recreate it: <code class="rounded bg-slate-100 px-1.5 py-0.5">docker compose up -d --force-recreate php</code>. Also clear config cache: <code class="rounded bg-slate-100 px-1.5 py-0.5">php artisan config:clear</code>.</p>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <p class="font-semibold text-slate-800">Vite manifest not found / unstyled pages</p>
+                        <p class="mt-1 text-sm text-slate-500">Run <code class="rounded bg-slate-100 px-1.5 py-0.5">npm run build</code> (production) or <code class="rounded bg-slate-100 px-1.5 py-0.5">npm run dev</code> (development).</p>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <p class="font-semibold text-slate-800">Blade/CSS changes not showing</p>
+                        <p class="mt-1 text-sm text-slate-500">Clear caches: <code class="rounded bg-slate-100 px-1.5 py-0.5">php artisan view:clear</code> and rebuild assets if you edited classes.</p>
+                    </div>
+                </div>
+
+                <!-- CHANGELOG -->
+                <h2 id="changelog" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Changelog</h2>
+                <div class="mt-4 space-y-5">
+                    <div>
+                        <div class="flex items-center gap-3"><span class="rounded-full brand-grad px-2.5 py-0.5 text-xs font-bold text-white">v4.0.0</span><span class="text-sm text-slate-400">Current · Corevex</span></div>
+                        <ul class="mt-2 list-disc pl-5 text-slate-600">
+                            <li>Rebuilt on Laravel 12, Tailwind CSS v4 and Alpine.js (migrated off Bootstrap 4 / jQuery / Laravel 9)</li>
+                            <li>New <strong>Corevex</strong> brand, SaaS logo &amp; live theme customizer with 8 modern palettes</li>
+                            <li>Redesigned Roles &amp; Permissions with drawer-based create/edit and a scalable permission selector</li>
+                            <li>25+ reusable Blade components; workspace switcher; modernized topbar &amp; footer</li>
+                            <li>Deep-redesigned Inventory, POS, Accounting, Reports &amp; Settings modules</li>
+                            <li>Removed legacy Bootstrap 4 / jQuery DataTables items (editable datatable, bootstrap table)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3"><span class="rounded-full bg-slate-200 px-2.5 py-0.5 text-xs font-bold text-slate-600">v2.x</span><span class="text-sm text-slate-400">Legacy</span></div>
+                        <ul class="mt-2 list-disc pl-5 text-slate-600"><li>Legacy Bootstrap 4 admin template (roles &amp; permissions).</li></ul>
+                    </div>
+                </div>
+                <p class="mt-4"><a href="release-notes.html" class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700">View full release notes →</a></p>
+
+                <!-- SUPPORT -->
+                <h2 id="support" class="mt-14 border-b border-slate-100 pb-2 text-2xl font-bold text-slate-900">Support &amp; credits</h2>
+                <p>Need a hand? Reach out through your CodeCanyon item's comments or the author profile. Every purchase includes 6 months of support.</p>
+                <ul class="list-disc pl-5 text-slate-600">
+                    <li><strong>Item &amp; updates:</strong> <a href="https://codecanyon.net/item/laravel-admin-template-roles-permission-editable-datatables/26005211" class="font-semibold text-blue-600">CodeCanyon listing</a></li>
+                    <li><strong>Author:</strong> <a href="https://corevex.app" class="font-semibold text-blue-600">Corevex</a></li>
+                </ul>
+                <p class="mt-3 text-sm text-slate-500">Built with Laravel, Tailwind CSS, Alpine.js, Spatie Laravel Permission and IconKit. Thank you for choosing Corevex!</p>
+
+                <div class="mt-16 flex items-center justify-between border-t border-slate-100 pt-6 text-sm text-slate-400">
+                    <span>© <span id="yr"></span> Corevex · Crafted by Corevex</span>
+                    <a href="#introduction" class="font-medium text-blue-600 hover:text-blue-700">Back to top ↑</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('yr').textContent = new Date().getFullYear();
+
+        // Mobile sidebar toggle
+        const sb = document.getElementById('sidebar'), bd = document.getElementById('backdrop');
+        document.getElementById('navToggle').addEventListener('click', () => { sb.classList.toggle('hidden'); bd.classList.toggle('hidden'); });
+        bd.addEventListener('click', () => { sb.classList.add('hidden'); bd.classList.add('hidden'); });
+        sb.addEventListener('click', e => { if (e.target.tagName === 'A' && window.innerWidth < 1024) { sb.classList.add('hidden'); bd.classList.add('hidden'); } });
+
+        // Scrollspy — highlight the active TOC link
+        const links = [...document.querySelectorAll('.toc a')];
+        const map = {};
+        links.forEach(l => { const id = l.getAttribute('href').slice(1); const el = document.getElementById(id); if (el) map[id] = l; });
+        const spy = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    links.forEach(l => l.classList.remove('active','border-blue-600','text-blue-600'));
+                    const a = map[e.target.id];
+                    if (a) { a.classList.add('active','border-blue-600'); }
+                }
+            });
+        }, { rootMargin: '-10% 0px -80% 0px' });
+        Object.values(map).forEach((l) => { const id = l.getAttribute('href').slice(1); const el = document.getElementById(id); if (el) spy.observe(el); });
+    </script>
+</body>
+</html>
